@@ -1,0 +1,13 @@
+{
+  "id": "{{randomValue length=10 type='ALPHANUMERIC'}}",
+  "status": "created",
+  "total": 99.99,
+  "items": [
+    {
+      "productId": "{{randomValue length=5 type='NUMERIC'}}",
+      "quantity": 2,
+      "price": 49.99
+    }
+  ],
+  "createdAt": "{{now}}"
+}

@@ -1,0 +1,13 @@
+{
+  "id": "{{request.pathSegments.[2]}}",
+  "name": "{{randomValue length=10 type='ALPHABETIC'}} {{randomValue length=8 type='ALPHABETIC'}}",
+  "description": "{{randomValue length=50 type='ALPHABETIC'}}",
+  "price": "{{randomValue length=3 type='NUMERIC'}}.{{randomValue length=2 type='NUMERIC'}}",
+  "category": "{{randomValue type='ALPHABETIC' length=8}}",
+  "sku": "SKU-{{randomValue length=8 type='ALPHANUMERIC'}}",
+  "stockQuantity": "{{randomValue length=3 type='NUMERIC'}}",
+  "brand": "{{randomValue length=7 type='ALPHABETIC'}}",
+  "rating": "{{randomValue length=1 type='NUMERIC'}}.{{randomValue length=1 type='NUMERIC'}}",
+  "tags": ["{{randomValue length=6 type='ALPHABETIC'}}", "{{randomValue length=5 type='ALPHABETIC'}}"],
+  "createdAt": "{{now}}"
+}

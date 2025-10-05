@@ -1,0 +1,27 @@
+{
+  "location": {
+    "city": "{{randomValue length=8 type='ALPHABETIC'}}",
+    "country": "{{randomValue length=2 type='ALPHABETIC'}}",
+    "coordinates": {
+      "lat": "{{randomValue length=2 type='NUMERIC'}}.{{randomValue length=4 type='NUMERIC'}}",
+      "lng": "-{{randomValue length=3 type='NUMERIC'}}.{{randomValue length=4 type='NUMERIC'}}"
+    }
+  },
+  "current": {
+    "temperature": "{{randomValue length=2 type='NUMERIC'}}°C",
+    "humidity": "{{randomValue length=2 type='NUMERIC'}}%",
+    "windSpeed": "{{randomValue length=2 type='NUMERIC'}} km/h",
+    "condition": "{{randomValue length=8 type='ALPHABETIC'}}",
+    "visibility": "{{randomValue length=2 type='NUMERIC'}} km",
+    "pressure": "{{randomValue length=4 type='NUMERIC'}} hPa"
+  },
+  "forecast": [
+    {
+      "day": "Tomorrow",
+      "high": "{{randomValue length=2 type='NUMERIC'}}°C",
+      "low": "{{randomValue length=2 type='NUMERIC'}}°C",
+      "condition": "{{randomValue length=6 type='ALPHABETIC'}}"
+    }
+  ],
+  "lastUpdated": "{{now}}"
+}
