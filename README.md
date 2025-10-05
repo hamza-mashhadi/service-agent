@@ -6,32 +6,6 @@ Service Agent provides a unified multi-tenant agent for executing service calls 
 ![img.png](img.png)
 
 
-
-## Multi-Tenancy Logic
-- I have implemented multi-tenancy by creating separate exchanges and queues for each tenant in RabbitMQ.
-  Each tenant has its own set of queues for performing requests, scheduling requests, and handling completed requests.
-  This ensures that the requests and their statuses are isolated per tenant.
-- In the database, each request document is associated with a tenant ID to maintain this separation.
-- The backend services are designed to handle requests based on the tenant context, ensuring that operations are performed within the scope of the selected tenant.
-- The UI allows users to select a tenant and view/manage requests specific to that tenant.
-- The Service can deploy more tenants by adding names of tenants in the `TENANTS` env variable as a comma-separated list.
-  - Example: `TENANTS=tenant1,tenant2,tenant3`
-  - When a new tenant is added, the necessary exchanges and queues are created automatically in RabbitMQ.
-  - After updating the TENANTS variable, you will need to restart the services with `make reload` to pick up the new tenant configuration.
-  - The UI will also reflect the new tenants in the tenant selection dropdown.
-
-## Flow of control
-1. We have the following queues available on RabbitMQ for each tenant:
-  - perform-request
-    - This queue is used to push a request to be completed as soon as possible
-    - It is picked up by the request-executor to perform the actual request
-  - schedule-request
-    - This queue is used to push a request to be scheduled for later
-    - It is picked up by the job scheduler service and once the time is up it sends a message in perform-request queue
-  - request-completed
-    - This queue is used by the request-executor to send a message once the request is completed
-    - It is picked up by the request-manager service to update the status of the request in the database
-
 ## Steps to run
 
 1. If you have Make installed, you can use the Makefile included to set up the project
@@ -48,6 +22,33 @@ This will copy the env.example into .env file and then start the services using 
 cp .env.example .env
 docker-compose up -d
 ```
+
+
+## Multi-Tenancy Logic
+- I have implemented multi-tenancy by creating separate exchanges and queues for each tenant in RabbitMQ.
+  Each tenant has its own set of queues for performing requests, scheduling requests, and handling completed requests.
+  This ensures that the requests and their statuses are isolated per tenant.
+- In the database, each request document is associated with a tenant ID to maintain this separation.
+- The backend services are designed to handle requests based on the tenant context, ensuring that operations are performed within the scope of the selected tenant.
+- The UI allows users to select a tenant and view/manage requests specific to that tenant.
+- The Service can deploy more tenants by adding names of tenants in the `TENANTS` env variable as a comma-separated list.
+  - Example: `TENANTS=tenant1,tenant2,tenant3`
+  - When a new tenant is added, the necessary exchanges and queues are created automatically in RabbitMQ.
+  - After updating the TENANTS variable, you will need to restart the services with `make reload` to pick up the new tenant configuration.
+  - The UI will also reflect the new tenants in the tenant selection dropdown.
+
+## Flow of control
+1. We have the following queues available on RabbitMQ for each tenant:
+- perform-request
+  - This queue is used to push a request to be completed as soon as possible
+  - It is picked up by the request-executor to perform the actual request
+- schedule-request
+  - This queue is used to push a request to be scheduled for later
+  - It is picked up by the job scheduler service and once the time is up it sends a message in perform-request queue
+- request-completed
+  - This queue is used by the request-executor to send a message once the request is completed
+  - It is picked up by the request-manager service to update the status of the request in the database
+
 
 ## Usage
 
